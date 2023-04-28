@@ -28,6 +28,20 @@
                 <a class="nav-link link-light" href="#">About</a>
               </li>
             </ul>
+            {% if request.user.is_authenticated %}
+              <div class="d-flex">
+                <a href="{% url 'logout' %}">
+                  <button type="button" class="btn btn-warning">Logout</button>
+                </a>
+              </div>
+            {% else %}
+              <div class="d-flex">
+                <a href="{% url 'login' %}">
+                  <button type="button" class="btn btn-primary">Login</button>
+                </a>
+              </div>
+            {% endif %}
+
           </div>
         </div>
       </nav>
