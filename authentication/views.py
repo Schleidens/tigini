@@ -15,9 +15,13 @@ class user_creation_view(View):
     template = 'user_creation_view.html'
     
     def get(self, request):
-        form = self.form()
         
-        return render(request, self.template, {'form': form})
+        if request.user.is_authenticated:
+            return redirect('home-page')
+        else:
+            form = self.form()
+            
+            return render(request, self.template, {'form': form})
     
     def post(self, request):
         form = self.form(request.POST)
@@ -37,9 +41,13 @@ class user_login_view(View):
     message = ''
     
     def get(self, request):
-        form = self.login_form()
         
-        return render(request, self.template, {'form': form})
+        if request.user.is_authenticated:
+            return redirect('home-page')
+        else:
+            form = self.login_form()   
+            
+            return render(request, self.template, {'form': form})
     
     def post(self, request):
         form = self.login_form(request.POST)
