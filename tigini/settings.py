@@ -138,3 +138,9 @@ AUTH_USER_MODEL = 'authentication.User'
 #root for media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.joinpath('media/')
+
+#redirect page for guest users
+LOGIN_URL = 'login'
+
+#set redirect page for authenticated user
+LOGIN_REDIRECT_URL = 'home-page'
