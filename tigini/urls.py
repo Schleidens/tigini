@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path
 
 from blog import views
+from authentication.views import user_creation_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_page.as_view(), name='home-page')
+    path('', views.home_page.as_view(), name='home-page'),
+    path('signup', user_creation_view.as_view(), name='signup')
 ]
