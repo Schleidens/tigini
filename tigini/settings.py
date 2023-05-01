@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'bootstrap5',
     
     'blog',
-    'authentication'
+    'authentication',
+    'user_profile'
 ]
 
 MIDDLEWARE = [

@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from blog import views
 from authentication.views import user_creation_view, user_login_view, user_logout_view
+from user_profile.views import user_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +31,11 @@ urlpatterns = [
     #user login view url
     path('login', user_login_view.as_view(), name='login'),
     #user logout view url
-    path('logout', user_logout_view.as_view(), name='logout')
+    path('logout', user_logout_view.as_view(), name='logout'),
+    #user profile view url
+    path('profile', user_profile.as_view(), name='profile')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
