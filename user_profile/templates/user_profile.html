@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-start align-items-center mt-5 h-50">
+
+    <div class="w-75">
+        <div class="card text-center">
+            <div class="card-header py-5">
+              
+            </div>
+            <img src="{{ request.user.profile_photo.url }}" class="img-thumbnail border border-5 rounded mx-auto w-25 h-25" style="margin-top: -70px;" alt="{{ request.user.username}}'s profile photo">
+            <div class="card-body">
+              <h3 class="card-title">
+                {{ request.user.first_name }} {{ request.user.last_name}}
+              </h3>
+              <h5 class="card-title font-light">
+                @{{ request.user.username }}
+              </h5>
+              <p class="card-text">
+                {{ request.user.bio }}
+              </p>
+              
+            </div>
+            <div class="card-footer text-body-secondary">
+              <a href="#" class="btn btn-primary">Edit Profile</a>
+            </div>
+          </div>
+    </div>
+    
+
+</div>
+{% endblock content %}
