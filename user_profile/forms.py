@@ -33,3 +33,7 @@ class editProfile(forms.ModelForm):
             })
         }
         
+
+class deleteProfileForm(forms.Form):
+    delete_profile = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+        
