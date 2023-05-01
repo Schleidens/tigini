@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic import View
 
-from .forms import editProfile
+from .forms import editProfile, deleteProfileForm
 
 # Create your views here.
 
@@ -36,3 +36,20 @@ class edit_user_profile(LoginRequiredMixin, View):
             return redirect('profile')
         
         return render(request, self.template, {'form': form})
+    
+    
+#user delete profile view CBVs
+class delete_profile(LoginRequiredMixin, View):
+    delete_form = deleteProfileForm
+    template = 'delete_profile.html'
+    
+    def get(self, request):
+        form = self.delete_form()
+        
+        return render(request, self.template, {'form': form})
+    
+    def post(self, request):
+        user = request.user
+        user.delete()
+        
+        return redirect('signup')
