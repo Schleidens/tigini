@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mt-5 container alert alert-danger" role="alert">
+    <h4 class="alert-heading">Please don't go :)</h4>
+    <p>Before you go, we just want to confirm that you want to delete your account. Keep in mind that once you delete your account, you won't be able to recover any of your information.</p>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input class="btn btn-danger" type="submit" value="I am sure, delete my account">
+        <a href="{% url 'profile' %}" class="btn btn-warning mx-3">Back to Profile</a>
+    </form>
+  </div>
+
+{% endblock content %}
