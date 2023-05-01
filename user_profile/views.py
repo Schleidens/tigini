@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic import View
@@ -10,4 +11,5 @@ class user_profile(LoginRequiredMixin ,View):
     template = 'user_profile.html'
     
     def get(self, request):
-        return render(self.request, self.template)
+        profile = request.user
+        return render(self.request, self.template, {'profile': profile})

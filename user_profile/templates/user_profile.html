@@ -8,16 +8,21 @@
             <div class="card-header py-5">
               
             </div>
-            <img src="{{ request.user.profile_photo.url }}" class="img-thumbnail border border-5 rounded mx-auto w-25 h-25" style="margin-top: -70px;" alt="{{ request.user.username}}'s profile photo">
+              {% if profile.profile_photo %}
+                <img src="{{ profile.profile_photo.url }}" class="img-thumbnail border border-5 rounded-circle mx-auto" style="width: 200px; height: 200px; margin-top: -70px;" alt="{{ profile.username}}'s profile photo">
+              {% else %}
+                <img src="https://vectorified.com/images/no-profile-picture-icon-24.jpg" class="img-thumbnail border border-5 rounded-circle mx-auto" style="width: 200px; height: 200px; margin-top: -70px;" alt="no profile photo">
+              {% endif %}
+              
             <div class="card-body">
               <h3 class="card-title">
-                {{ request.user.first_name }} {{ request.user.last_name}}
+                {{ profile.first_name }} {{ profile.last_name}}
               </h3>
               <h5 class="card-title font-light">
-                @{{ request.user.username }}
+                @{{ profile.username }}
               </h5>
               <p class="card-text">
-                {{ request.user.bio }}
+                {{ profile.bio }}
               </p>
               
             </div>
