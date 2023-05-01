@@ -13,7 +13,7 @@
             </h1>
         </div>
     
-        <div class="row w-50">
+        <div class="row mx-auto mx-md-5">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">
                      {{ form.profile_photo.label}} 
@@ -61,11 +61,16 @@
                 <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>
               </div>
 
+              <div class="mb-3">
+                <a href="{% url 'profile' %}" class="btn btn-warning w-100 mb-3">Back to Profile</a>
+              </div>
+
         </div>
         
 
     </div>
 
 </form>
+
 
 {% endblock content %}
