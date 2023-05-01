@@ -26,8 +26,17 @@
               </p>
               
             </div>
-            <div class="card-footer text-body-secondary">
-              <a href="{% url 'edit-profile' %}" class="btn btn-primary">Edit Profile</a>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <a href="{% url 'edit-profile' %}" class="btn btn-primary w-100">Edit Profile</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="btn btn-primary w-100">Change Password</a>
+              </li>
+            </ul>
+          
+            <div class="card-footer text-body-secondary py-3">
+              <a href="{% url 'delete-profile' %}" class="btn btn-danger w-100">Delete my account</a>
             </div>
           </div>
     </div>
