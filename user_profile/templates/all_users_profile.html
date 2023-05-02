@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="mx-5 mt-5">
+        <div class="row justify-content-center">
+            {% for user in users %}
+            <div class="col-12 mb-3 mx-2">
+                <div class="card border-info">
+                    <div class="card-header" style="background-color: #0dcaf0;">
+
+                    </div>            
+                     <div class="card-body">
+                        <h4 class="card-title fw-bold">
+                          {{ user.first_name }} {{ user.last_name }}
+                        </h4>
+                        <h6 class="card-text">
+                            <small class="text-body-secondary fw-light">
+                                @{{ user.username }}
+                            </small>
+                        </h6>
+                        <p class="card-text">
+                          {{ user.bio }}
+                        </p>
+                        <button type="button" class="btn btn-outline-info">
+                          View profile
+                        </button>
+                     </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}
