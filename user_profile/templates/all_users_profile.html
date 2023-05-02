@@ -22,9 +22,9 @@
                         <p class="card-text">
                           {{ user.bio }}
                         </p>
-                        <button type="button" class="btn btn-outline-info">
+                        <a href="{% url 'single-profile' user.username %}" type="button" class="btn btn-outline-info">
                           View profile
-                        </button>
+                        </a>
                      </div>
                 </div>
             </div>
