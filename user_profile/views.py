@@ -76,3 +76,14 @@ class delete_profile(LoginRequiredMixin, View):
         user.delete()
         
         return redirect('signup')
+    
+    
+#all users profile list
+class all_users_profile(View):
+    user = get_user_model()
+    template = 'all_users_profile.html'
+    
+    def get(self, request):
+        users = self.user.objects.order_by('first_name')
+        
+        return render(request, self.template, {'users': users})
