@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 from blog import views
 from authentication.views import user_creation_view, user_login_view, user_logout_view
-from user_profile.views import user_profile, edit_user_profile, change_password, delete_profile
+from user_profile.views import user_profile, edit_user_profile, change_password, delete_profile, all_users_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +39,9 @@ urlpatterns = [
     #change password url
     path('password', change_password.as_view(), name='change-password'),
     #delete profile url
-    path('profile/delete', delete_profile.as_view(), name='delete-profile')
+    path('profile/delete', delete_profile.as_view(), name='delete-profile'),
+    #any user profile url
+    path('user', all_users_profile.as_view(), name='all-users')
 ]
 
 if settings.DEBUG:
