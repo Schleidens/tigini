@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-expand-lg sticky-top bg-dark bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-          <a class="navbar-brand text-light" href="#">TIGINI</a>
+          <a class="navbar-brand text-light" href="{% url 'home-page' %}">TIGINI</a>
 
           <button class="navbar-toggler btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars" aria-hidden="true"></i>
@@ -19,10 +19,15 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
               <li class="nav-item">
-                <a class="nav-link link-light" aria-current="page" href="#">Profile</a>
+                <a class="nav-link link-light" href="{% url 'home-page' %}">Home</a>
               </li>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'profile' %}">Profile</a>
+                </li>
+              {% endif %}
               <li class="nav-item">
-                <a class="nav-link link-light" href="#">My post</a>
+                <a class="nav-link link-light" href="{% url 'all-users' %}">Bloggers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link link-light" href="#">About</a>
@@ -47,13 +52,13 @@
       </nav>
 
 
-  <div class="vh-100">
+  <div class="pb-5 mb-5">
     {% block content %}
     {% endblock %}
   </div>
 
 
-    <div class="container">
+    <div class="container mt-5 pt-5">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Profile</a></li>
