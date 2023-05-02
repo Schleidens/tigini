@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -87,3 +87,14 @@ class all_users_profile(View):
         users = self.user.objects.order_by('first_name')
         
         return render(request, self.template, {'users': users})
+    
+    
+#single user profile base on username
+class single_user_profile(View):
+    user = get_user_model()
+    template = 'single_user_profile.html'
+    
+    def get(self, *args, **kwargs):
+        user = get_object_or_404(self.user, username=kwargs['username'])
+        
+        return render(self.request, self.template, {'user': user})

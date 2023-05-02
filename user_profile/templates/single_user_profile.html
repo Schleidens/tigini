@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="d-flex flex-column justify-content-start align-items-center mt-5 h-50">
+
+    <div class="w-75">
+        <div class="card text-center">
+            <div class="card-header py-5">
+              
+            </div>
+              {% if user.profile_photo %}
+                <img src="{{ user.profile_photo.url }}" class="img-thumbnail border border-5 rounded-circle mx-auto" style="width: 200px; height: 200px; margin-top: -70px;" alt="{{ profile.username}}'s profile photo">
+              {% else %}
+                <img src="https://vectorified.com/images/no-profile-picture-icon-24.jpg" class="img-thumbnail border border-5 rounded-circle mx-auto" style="width: 200px; height: 200px; margin-top: -70px;" alt="no profile photo">
+              {% endif %}
+              
+            <div class="card-body">
+              <h3 class="card-title">
+                {{ user.first_name }} {{ user.last_name}}
+              </h3>
+              <h5 class="card-title font-light">
+                @{{ user.username }}
+              </h5>
+              <p class="card-text">
+                {{ user.bio }}
+              </p>
+              
+            </div>
+          </div>
+    </div>
+    
+
+</div>
+
+{% endblock content %}
