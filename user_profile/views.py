@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import update_session_auth_hash
 
 from django.views.generic import View
 
-from .forms import editProfile, deleteProfileForm
+from .forms import editProfile, changePasswordForm, deleteProfileForm
 
 # Create your views here.
 
@@ -32,6 +33,28 @@ class edit_user_profile(LoginRequiredMixin, View):
         
         if form.is_valid():
             form.save()
+            
+            return redirect('profile')
+        
+        return render(request, self.template, {'form': form})
+    
+    
+#change password view CBVs
+class change_password(LoginRequiredMixin, View):
+    password_form = changePasswordForm
+    template = 'change_password.html'
+    
+    def get(self, request):
+        form = self.password_form(request.user)
+        
+        return render(request, self.template, {'form': form})
+    
+    def post(self, request):
+        form = self.password_form(user=request.user, data=request.POST)
+        
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
             
             return redirect('profile')
         
