@@ -20,7 +20,7 @@ class home_page(View):
         return render(request, self.template, {'blogs': blogs})
     
     
-class new_blog_post(View):
+class new_blog_post(LoginRequiredMixin, View):
     blogModel = blogPost
     form = blogForm
     template = 'new_blog_post.html'
