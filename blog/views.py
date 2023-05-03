@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from random import randint
 
@@ -61,3 +62,36 @@ class single_blog_view(View):
         blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
         
         return render(self.request, self.template, {'blog': blog})
+    
+
+#edit blog view
+class edit_blog(LoginRequiredMixin, View):
+    form = blogForm
+    model = blogPost
+    template = 'edit_blog.html'
+    
+    def get(self, *args, **kwargs):
+        blog = get_object_or_404(self.model, slug=kwargs['slug'])
+        
+        if blog.author == self.request.user:
+            form = self.form(instance=blog)
+        else:
+            return redirect('home-page')
+        
+        return render(self.request, self.template, {'form': form})
+    
+    def post(self, *args, **kwargs):
+        blog = get_object_or_404(self.model, slug=kwargs['slug'])
+        
+        if blog.author == self.request.user:
+            form = self.form(self.request.POST, self.request.FILES, instance=blog)
+            
+            if form.is_valid():
+                form.save()
+                
+                return redirect('single-blog', kwargs['slug'])
+                
+        else:
+            return redirect('home-page')
+        
+        return render(self.request, self.template, {'form': form})
