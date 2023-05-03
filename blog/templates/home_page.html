@@ -1,1 +1,47 @@
 {% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="mx-5 mt-4 justify-content-center">
+
+        <div class="mb-4 w-100">
+            <a href="{% url 'new-blog' %}" type="button" class="btn btn-outline-dark w-100">
+                Create a new blog
+            </a>
+        </div>
+
+        {% for post in blogs %}
+        <div class="card mb-3" style="background-color: #f0f0f0;">            
+            {% if post.cover %}
+                <img src="{{ post.cover.url }}" class="w-auto" style="height: 150px; object-fit: cover;" alt="{{ post.title }}">
+            {% endif %}
+            <div class="card-body">
+                <div>
+                    {% if post.author.profile_photo %}
+                        <img src="{{ post.author.profile_photo.url }}" class="border border-2 rounded-circle mx-auto" style="width: 30px; height: 30px;" alt="{{ profile.username}}'s profile photo">
+                    {% else %}
+                        <img src="https://vectorified.com/images/no-profile-picture-icon-24.jpg" class="border border-2 rounded-circle mx-auto" style="width: 30px; height: 30px;" alt="no profile photo">
+                    {% endif %}
+                    <span class="fw-medium">
+                        <a href="{% url 'single-profile' post.author.username %}" style="color: inherit; text-decoration: none;">
+                            @{{ post.author.username }}
+                        </a>
+                    </span>
+                </div>
+                <div class="px-4">
+                    <h2 class="card-title fw-bold">
+                        {{ post.title }}
+                    </h2>
+                    <p class="card-text">
+                        <small class="text-body-secondary fw-light">
+                            Last updated {{ post.date }}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}          
+    </div>
+
+{% endblock content %}

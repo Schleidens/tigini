@@ -2,15 +2,19 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 
 from .forms import blogForm
+from .models import blogPost
 
 # Create your views here.
 
 
 class home_page(View):
+    model = blogPost
     template = 'home_page.html'
     
     def get(self, request):
-        return render(self.request, self.template)
+        blogs = self.model.objects.order_by('-date')
+        
+        return render(request, self.template, {'blogs': blogs})
     
     
 class new_blog_post(View):
