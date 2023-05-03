@@ -25,3 +25,7 @@ class blogForm(forms.ModelForm):
                 'class' : 'form-control'
             })
         }
+        
+        
+class deleteBlogForm(forms.Form):
+    delete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
