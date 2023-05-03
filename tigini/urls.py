@@ -20,13 +20,13 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blog import views
+from blog.views import home_page, new_blog_post
 from authentication.views import user_creation_view, user_login_view, user_logout_view
 from user_profile.views import user_profile, edit_user_profile, change_password, delete_profile, all_users_profile, single_user_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_page.as_view(), name='home-page'),
+    path('', home_page.as_view(), name='home-page'),
     path('signup', user_creation_view.as_view(), name='signup'),
     #user login view url
     path('login', user_login_view.as_view(), name='login'),
@@ -43,7 +43,9 @@ urlpatterns = [
     #any user profile url
     path('user', all_users_profile.as_view(), name='all-users'),
     #single user profile url
-    path('user/<str:username>', single_user_profile.as_view(), name='single-profile')
+    path('user/<str:username>', single_user_profile.as_view(), name='single-profile'),
+    #new blog post url
+    path('new/blog', new_blog_post.as_view(), name='new-blog')
 ]
 
 if settings.DEBUG:
