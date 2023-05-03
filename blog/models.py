@@ -7,6 +7,7 @@ from django.conf import settings
 class blogPost(models.Model):
     cover = models.ImageField(blank=True, null=True)
     title = models.CharField(max_length=150)
+    slug = models.SlugField(default="", unique=True, null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     date = models.DateTimeField(auto_now=True)
