@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.utils.text import slugify
 from random import randint
@@ -50,3 +50,14 @@ class new_blog_post(View):
             return redirect('home-page')
             
         return render(request, self.template, {'form': form})
+    
+    
+#single blog view CBVs
+class single_blog_view(View):
+    blogModel = blogPost
+    template = 'single_blog_view.html'
+    
+    def get(self, *args, **kwargs):
+        blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
+        
+        return render(self.request, self.template, {'blog': blog})
