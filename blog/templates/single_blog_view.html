@@ -50,6 +50,13 @@
             </div>
         </div>
     </div>
+
+    {% if request.user.is_authenticated and blog.author == request.user %}
+      <div class="">
+          <a href="{% url 'edit-blog' blog.slug %}" class="btn btn-primary">Edit</a>
+          <button class="btn btn-danger">Delete blog</button>
+      </div>
+    {% endif %}
          
 </div>
 
