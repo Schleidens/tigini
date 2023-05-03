@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from random import randint
 
-from .forms import blogForm
+from .forms import blogForm, deleteBlogForm
 from .models import blogPost
 
 # Create your views here.
@@ -56,12 +56,41 @@ class new_blog_post(LoginRequiredMixin, View):
 #single blog view CBVs
 class single_blog_view(View):
     blogModel = blogPost
+    delete_form = deleteBlogForm
     template = 'single_blog_view.html'
     
     def get(self, *args, **kwargs):
         blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
+        form = self.delete_form()
         
-        return render(self.request, self.template, {'blog': blog})
+        context = {
+            'blog' : blog,
+            'form' : form
+        }
+        
+        return render(self.request, self.template, context=context)
+    
+    #for handle the delete blog request
+    def post(self, *args, **kwargs):
+        blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
+        
+        if blog.author == self.request.user:
+            form = self.delete_form(self.request.POST)
+            
+            if form.is_valid():
+                blog.delete()
+                
+                return redirect('home-page')
+        else:
+            return redirect('home-page')
+        
+        context = {
+            'blog' : blog,
+            'form' : form
+        }
+        
+        return render(self.request, self.template, context=context)
+            
     
 
 #edit blog view
