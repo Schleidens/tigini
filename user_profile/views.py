@@ -6,6 +6,7 @@ from django.contrib.auth import update_session_auth_hash
 
 from django.views.generic import View
 
+from blog.models import blogPost
 from .forms import editProfile, changePasswordForm, deleteProfileForm
 
 # Create your views here.
@@ -92,9 +93,17 @@ class all_users_profile(View):
 #single user profile base on username
 class single_user_profile(View):
     user = get_user_model()
+    blog_model = blogPost
     template = 'single_user_profile.html'
     
     def get(self, *args, **kwargs):
         user = get_object_or_404(self.user, username=kwargs['username'])
         
-        return render(self.request, self.template, {'user': user})
+        blogs = self.blog_model.objects.filter(author=user)
+        
+        context = {
+            'user': user,
+            'blogs': blogs
+        }
+        
+        return render(self.request, self.template, context=context)
