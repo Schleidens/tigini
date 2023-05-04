@@ -48,7 +48,7 @@ class new_blog_post(LoginRequiredMixin, View):
             blog.slug = unique_slug
             blog.save()
             
-            return redirect('home-page')
+            return redirect('single-blog', blog.slug)
             
         return render(request, self.template, {'form': form})
     
