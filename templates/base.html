@@ -53,8 +53,8 @@
                       </a>
                     </li>
                     <li>
-                      <a href="" class="dropdown-item" type="button">
-                          My blog
+                      <a href="{% url 'dashboard' %}" class="dropdown-item" type="button">
+                          Dashboard
                       </a>
                     </li>
                     <li>
@@ -87,11 +87,26 @@
     <div class="container mt-5 pt-5">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Profile</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">My post</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          <li class="nav-item">
+            <a href="{% url 'home-page' %}" class="nav-link px-2 text-muted">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'all-users' %}" class="nav-link px-2 text-muted">Bloggers</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">About</a>
+          </li>
         </ul>
-        <p class="text-center text-muted">&copy; 2023 TIGINI by Schleidens.Dev</p>
+        <p class="text-center text-muted">
+          &copy; 2023 TIGINI by 
+          <a 
+            href="https://schleidens.netlify.app"
+            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            target="_blank"
+          >
+            Schleidens.Dev
+          </a>
+        </p>
       </footer>
     </div>
 </body>
