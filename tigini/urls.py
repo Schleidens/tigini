@@ -20,7 +20,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blog.views import home_page, new_blog_post, single_blog_view, edit_blog
+from blog.views import home_page, new_blog_post, single_blog_view, edit_blog, user_blog
 from authentication.views import user_creation_view, user_login_view, user_logout_view
 from user_profile.views import user_profile, edit_user_profile, change_password, delete_profile, all_users_profile, single_user_profile
 
@@ -49,7 +49,9 @@ urlpatterns = [
     #single blog view url
     path('blog/<str:slug>', single_blog_view.as_view(), name='single-blog'),
     #edit blog view url
-    path('edit/blog/<str:slug>', edit_blog.as_view(), name='edit-blog')
+    path('edit/blog/<str:slug>', edit_blog.as_view(), name='edit-blog'),
+    #user blog list url
+    path('dashboard', user_blog.as_view(), name='dashboard')
 ]
 
 if settings.DEBUG:

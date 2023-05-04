@@ -124,3 +124,14 @@ class edit_blog(LoginRequiredMixin, View):
             return redirect('home-page')
         
         return render(self.request, self.template, {'form': form})
+
+
+#user logged in blog view CBVs
+class user_blog(LoginRequiredMixin, View):
+    blog_model = blogPost
+    template = 'user_blog.html'
+    
+    def get(self, request):
+        blogs = self.blog_model.objects.filter(author=request.user).order_by('-date')
+        
+        return render(request, self.template, {'blogs': blogs})
