@@ -35,9 +35,32 @@
             </ul>
             {% if request.user.is_authenticated %}
               <div class="d-flex">
-                <a href="{% url 'logout' %}">
-                  <button type="button" class="btn btn-warning">Logout</button>
-                </a>
+                <div class="btn-group">
+                  <div type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    {% if request.user.profile_photo %}
+                        <img src="{{ request.user.profile_photo.url }}" class="border border-2 rounded-circle mx-auto" style="width: 35px; height: 35px;" alt="{{ request.user.username}}'s profile photo">
+                    {% else %}
+                        <img src="https://vectorified.com/images/no-profile-picture-icon-24.jpg" class="border border-2 rounded-circle mx-auto" style="width: 35px; height: 35px;" alt="no profile photo">
+                    {% endif %}
+                  </div>
+                  <ul class="dropdown-menu dropdown-menu-lg-end p-0">
+                    <li>
+                      <a href="{% url 'profile' %}" class="dropdown-item" type="button">
+                        Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a href="" class="dropdown-item" type="button">
+                          My blog
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'logout' %}" type="button" class="btn btn-warning w-100">
+                        logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             {% else %}
               <div class="d-flex">
