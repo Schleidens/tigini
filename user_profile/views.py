@@ -99,7 +99,7 @@ class single_user_profile(View):
     def get(self, *args, **kwargs):
         user = get_object_or_404(self.user, username=kwargs['username'])
         
-        blogs = self.blog_model.objects.filter(author=user)
+        blogs = self.blog_model.objects.filter(author=user).order_by('-created_date')
         
         context = {
             'user': user,
