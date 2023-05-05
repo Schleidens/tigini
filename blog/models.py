@@ -25,13 +25,8 @@ class blogPost(models.Model):
             # Open the image using Pillow
             image = Image.open(self.cover)
             
-            #check the image size before resize and Compress
-            width, height = image.size
-            if width > 1024 or height > 1024:
-                max_size = (1024, 1024)
-                
             #Resize the image to a maximum size of 1024 x 1024 pixels
-            image.thumbnail(max_size)
+            image.thumbnail((1024, 1024))
             
             # Compress the image
             if self.cover.name.lower().endswith('.jpg') or self.cover.name.lower().endswith('.jpeg'):
