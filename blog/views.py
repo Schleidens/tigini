@@ -15,7 +15,7 @@ class home_page(View):
     template = 'home_page.html'
     
     def get(self, request):
-        blogs = self.model.objects.order_by('-date')
+        blogs = self.model.objects.order_by('-created_date')
         
         return render(request, self.template, {'blogs': blogs})
     
@@ -132,6 +132,6 @@ class user_blog(LoginRequiredMixin, View):
     template = 'user_blog.html'
     
     def get(self, request):
-        blogs = self.blog_model.objects.filter(author=request.user).order_by('-date')
+        blogs = self.blog_model.objects.filter(author=request.user).order_by('-created_date')
         
         return render(request, self.template, {'blogs': blogs})
