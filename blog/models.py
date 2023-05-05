@@ -13,6 +13,7 @@ class blogPost(models.Model):
     slug = models.SlugField(default="", unique=True, null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
+    draft = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     date = models.DateTimeField(auto_now=True)
     
