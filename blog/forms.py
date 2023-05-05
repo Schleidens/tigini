@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput, Textarea, ClearableFileInput
+from django.forms import TextInput, Textarea, ClearableFileInput, CheckboxInput
 from .models import blogPost
 
 
@@ -7,7 +7,7 @@ class blogForm(forms.ModelForm):
     
     class Meta:
         model =  blogPost
-        fields = ['cover', 'title', 'content']
+        fields = ['cover', 'title', 'content', 'draft']
         
         widgets = {
             'cover' : ClearableFileInput(attrs={
@@ -23,6 +23,10 @@ class blogForm(forms.ModelForm):
             'content' : Textarea(attrs={
                 'placeholder' : 'Write your blog content here',
                 'class' : 'form-control'
+            }),
+            
+            'draft' : CheckboxInput(attrs={
+                'class' : 'form-check-input'
             })
         }
         
