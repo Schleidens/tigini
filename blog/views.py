@@ -15,7 +15,7 @@ class home_page(View):
     template = 'home_page.html'
     
     def get(self, request):
-        blogs = self.model.objects.order_by('-created_date')
+        blogs = self.model.objects.filter(draft=False).order_by('-created_date')
         
         return render(request, self.template, {'blogs': blogs})
     
@@ -61,6 +61,10 @@ class single_blog_view(View):
     
     def get(self, *args, **kwargs):
         blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
+        
+        if blog.draft == True and blog.author != self.request.user:
+            return redirect('home-page')
+            
         form = self.delete_form()
         
         context = {
