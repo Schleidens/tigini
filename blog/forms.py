@@ -31,5 +31,10 @@ class blogForm(forms.ModelForm):
         }
         
         
+#form for draft button
+class draftForm(forms.Form):
+    draft = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+        
+        
 class deleteBlogForm(forms.Form):
     delete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
