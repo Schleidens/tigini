@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from random import randint
 
-from .forms import blogForm, deleteBlogForm
+from .forms import blogForm, draftForm, deleteBlogForm
 from .models import blogPost
 
 # Create your views here.
@@ -15,7 +15,7 @@ class home_page(View):
     template = 'home_page.html'
     
     def get(self, request):
-        blogs = self.model.objects.order_by('-created_date')
+        blogs = self.model.objects.filter(draft=False).order_by('-created_date')
         
         return render(request, self.template, {'blogs': blogs})
     
@@ -56,15 +56,23 @@ class new_blog_post(LoginRequiredMixin, View):
 #single blog view CBVs
 class single_blog_view(View):
     blogModel = blogPost
+    draft_form = draftForm
     delete_form = deleteBlogForm
     template = 'single_blog_view.html'
     
     def get(self, *args, **kwargs):
         blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
+        
+        #check if blog is not draft and if current user is the owner
+        if blog.draft == True and blog.author != self.request.user:
+            return redirect('home-page')
+            
+        draft_form = self.draft_form()
         form = self.delete_form()
         
         context = {
             'blog' : blog,
+            'draft_form' : draft_form,
             'form' : form
         }
         
@@ -74,19 +82,38 @@ class single_blog_view(View):
     def post(self, *args, **kwargs):
         blog = get_object_or_404(self.blogModel, slug=kwargs['slug'])
         
+        #add draft_form outside the func for scope and prevent referenced before assignment error
+        draft_form = self.draft_form(self.request.POST)
+        
+        #only the current user can make a post request else it will be redirected
         if blog.author == self.request.user:
-            form = self.delete_form(self.request.POST)
             
-            if form.is_valid():
-                blog.delete()
+            #handle draft form request
+            if 'draft' in self.request.POST:
+                draft_form = self.draft_form(self.request.POST)
                 
-                return redirect('home-page')
+                if draft_form.is_valid():
+                    blog.draft = not blog.draft
+                    blog.save()
+                    
+                    return redirect('home-page')
+            
+            #handle delete form request
+            if 'delete' in self.request.POST:
+                form = self.delete_form(self.request.POST)
+                
+                if form.is_valid():
+                    blog.delete()
+                    
+                    return redirect('home-page')
+                    
+        #redirect if the user trying to make a post request is not the owner            
         else:
             return redirect('home-page')
         
         context = {
             'blog' : blog,
-            'form' : form
+            'draft_form' : draft_form,
         }
         
         return render(self.request, self.template, context=context)
