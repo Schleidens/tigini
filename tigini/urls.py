@@ -20,13 +20,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blog.views import home_page, new_blog_post, single_blog_view, edit_blog, user_blog
+from blog.views import home_page, about_page, new_blog_post, single_blog_view, edit_blog, user_blog
 from authentication.views import user_creation_view, user_login_view, user_logout_view
 from user_profile.views import user_profile, edit_user_profile, change_password, delete_profile, all_users_profile, single_user_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page.as_view(), name='home-page'),
+    #about page view url
+    path('about', about_page, name='about'),
     path('signup', user_creation_view.as_view(), name='signup'),
     #user login view url
     path('login', user_login_view.as_view(), name='login'),
