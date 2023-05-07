@@ -33,7 +33,7 @@
                 <a class="nav-link link-light" href="{% url 'all-users' %}">Bloggers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link link-light" href="#">About</a>
+                <a class="nav-link link-light" href="{% url 'about' %}">About</a>
               </li>
             </ul>
             {% if request.user.is_authenticated %}
@@ -94,7 +94,7 @@
             <a href="{% url 'all-users' %}" class="nav-link px-2 text-muted">Bloggers</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">About</a>
+            <a href="{% url 'about' %}" class="nav-link px-2 text-muted">About</a>
           </li>
         </ul>
         <p class="text-center text-muted">
