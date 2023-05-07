@@ -20,6 +20,12 @@ class home_page(View):
         return render(request, self.template, {'blogs': blogs})
     
     
+#about page view FBVs
+def about_page(request):
+    
+    return render(request, 'about_page.html')
+    
+    
 class new_blog_post(LoginRequiredMixin, View):
     blogModel = blogPost
     form = blogForm
