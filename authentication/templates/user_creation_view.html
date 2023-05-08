@@ -56,12 +56,18 @@
                 {{ form.password2 }}
               </div>
 
-              {% if message %}
+              {% for error in form.errors %}
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
+                {% if error == 'username' %}
+                  That username is already taken. Please choose a different username.
+                {% elif error == 'password2' %}
+                  Password must be at least 8 characters and contain at least one letter and one number.
+                {% else %}
+                  Something's went wrong
+                {% endif %}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
-              {% endif %}
+              {% endfor %}
               
               <div class="mb-3">
                 <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>
